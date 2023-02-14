@@ -6,13 +6,12 @@
 
     <parent>
         <artifactId>meetingapp</artifactId>
-        <groupId>hu.kunb.interview</groupId>
+        <groupId>hu.kunb</groupId>
         <version>1.0</version>
     </parent>
 
-    <groupId>hu.kunb.interview</groupId>
     <artifactId>restapi</artifactId>
-    <version>1.0</version>
+    <version>${revision}</version>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -42,7 +41,7 @@
             <artifactId>springdoc-openapi-ui</artifactId>
         </dependency>
         <dependency>
-            <groupId>hu.kunb.interview</groupId>
+            <groupId>hu.kunb</groupId>
             <artifactId>core</artifactId>
         </dependency>
     </dependencies>
@@ -63,19 +62,19 @@
                         <configuration>
                             <inputSpec>${project.basedir}/openapi/openapi.yaml</inputSpec>
                             <verbose>false</verbose>
-                            <packageName>hu.kunb.interview.restapi</packageName>
+                            <packageName>hu.kunb.meetingapp.restapi</packageName>
                             <generatorName>spring</generatorName>
                             <artifactId>spring</artifactId>
-                            <groupId>hu.kunb.interview.restapi</groupId>
+                            <groupId>hu.kunb.meetingapp.restapi</groupId>
                             <configOptions>
                                 <useTags>true</useTags>
                                 <interfaceOnly>true</interfaceOnly>
                                 <additionalModelTypeAnnotations>
                                     @com.fasterxml.jackson.annotation.JsonInclude(com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL)
                                 </additionalModelTypeAnnotations>
-                                <apiPackage>hu.kunb.interview.restapi.spring.api</apiPackage>
-                                <modelPackage>hu.kunb.interview.restapi.spring.model</modelPackage>
-                                <invokerPackage>hu.kunb.interview.restapi.spring</invokerPackage>
+                                <apiPackage>hu.kunb.meetingapp.restapi.spring.api</apiPackage>
+                                <modelPackage>hu.kunb.meetingapp.restapi.spring.model</modelPackage>
+                                <invokerPackage>hu.kunb.meetingapp.restapi.spring</invokerPackage>
                                 <dateLibrary>java8</dateLibrary>
                             </configOptions>
                             <generateAliasAsModel>true</generateAliasAsModel>

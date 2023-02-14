@@ -1,5 +1,6 @@
-package hu.kunb.interview.modell;
+package hu.kunb.meetingapp.modell;
 
+import hu.kunb.meetingapp.reservation.modell.MeetingReservation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

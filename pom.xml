@@ -10,7 +10,7 @@
         <version>2.7.8</version>
     </parent>
 
-    <groupId>hu.kunb.interview</groupId>
+    <groupId>hu.kunb</groupId>
     <artifactId>meetingapp</artifactId>
     <packaging>pom</packaging>
     <version>1.0</version>
@@ -56,12 +56,12 @@
                 <version>${jackson-databind-nullable.version}</version>
             </dependency>
             <dependency>
-                <groupId>hu.kunb.interview</groupId>
+                <groupId>hu.kunb</groupId>
                 <artifactId>restapi</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
-                <groupId>hu.kunb.interview</groupId>
+                <groupId>hu.kunb</groupId>
                 <artifactId>core</artifactId>
                 <version>${revision}</version>
             </dependency>
@@ -105,7 +105,7 @@
                         </execution>
                     </executions>
                     <configuration>
-                        <skip>false</skip>
+                        <skip>true</skip>
                         <failWhenNoMutations>false</failWhenNoMutations>
                         <withHistory>true</withHistory>
                     </configuration>

@@ -1,4 +1,4 @@
-package hu.kunb.interview.modell;
+package hu.kunb.meetingapp.reservation.modell;
 
 import java.time.LocalDate;
 
