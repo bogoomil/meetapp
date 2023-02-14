@@ -17,7 +17,7 @@ paths:
       tags:
         - meeting reservation
       summary: Post meeting reservation data
-      operationId: posteetingReservation
+      operationId: postMeetingReservation
       requestBody:
         required: true
         content:

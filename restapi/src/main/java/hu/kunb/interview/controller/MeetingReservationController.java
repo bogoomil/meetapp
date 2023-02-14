@@ -14,7 +14,7 @@ public class MeetingReservationController implements MeetingReservationApi {
 
     @Override
     @PostMapping("/private/meeting/reservation")
-    public ResponseEntity<MeetingReservationResponseDto> posteetingReservation(MeetingReservationRequestDto meetingReservationRequestDto) {
-        return MeetingReservationApi.super.posteetingReservation(meetingReservationRequestDto);
+    public ResponseEntity<MeetingReservationResponseDto> postMeetingReservation(MeetingReservationRequestDto meetingReservationRequestDto) {
+        return MeetingReservationApi.super.postMeetingReservation(meetingReservationRequestDto);
     }
 }
