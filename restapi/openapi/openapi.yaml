@@ -1,0 +1,76 @@
+openapi: 3.0.3
+info:
+  title: Meeting app
+  description: Basic meeting reservation api
+  version: 1.0.9
+
+servers:
+  - url: http://localhost:8080/api/
+    description: Develop
+
+tags:
+  - name: meeting
+
+paths:
+  /private/meeting/reservation:
+    post:
+      tags:
+        - meeting reservation
+      summary: Post meeting reservation data
+      operationId: posteetingReservation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MeetingReservationRequestDto"
+      responses:
+        "200":
+          description: Response when meeting is reserved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MeetingReservationResponseDto"
+        "4XX":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "5XX":
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+
+components:
+  schemas:
+    MeetingReservationRequestDto:
+      type: object
+      properties:
+        username:
+          type: string
+        day:
+          type: string
+          format: date
+        startHour:
+          type: integer
+        endHour:
+          type: integer
+        startMin:
+          type: integer
+        endMin:
+          type: integer
+    MeetingReservationResponseDto:
+      type: object
+      properties:
+        status:
+          type: string
+    ErrorDto:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string

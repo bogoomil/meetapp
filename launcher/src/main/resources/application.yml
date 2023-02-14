@@ -1,0 +1,14 @@
+server:
+  port: 8080
+
+logging:
+  level:
+    org.springframework.security.web.FilterChainProxy: debug
+    org:
+      springframework:
+        web:
+          servlet:
+            mvc:
+              method:
+                annotation:
+                  RequestMappingHandlerMapping: trace
