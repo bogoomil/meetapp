@@ -3,8 +3,6 @@ package hu.kunb.meetingapp.exceptionhandling;
 import hu.kunb.meetingapp.apidefinition.spring.model.ErrorDto;
 import hu.kunb.meetingapp.apidefinition.spring.model.ErrorDtoErrorListInner;
 import hu.kunb.meetingapp.reservation.exception.ReservationException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +15,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class MeetingReservationControllerAdvice extends ResponseEntityExceptionHandler {
@@ -38,7 +37,7 @@ public class MeetingReservationControllerAdvice extends ResponseEntityExceptionH
     @ExceptionHandler(value = {ReservationException.class})
     public ResponseEntity<?> handleNvenExceptions(ReservationException ex) {
         ErrorDto dto = new ErrorDto()
-                .errorList(Arrays.asList(new ErrorDtoErrorListInner().message(ex.getMessage())))
+                .errorList(ex.getErrors().stream().map(error -> new ErrorDtoErrorListInner().message(error)).collect(Collectors.toList()))
                 .message("Invalid input data");
         ResponseEntity resp = ResponseEntity.status(400).body(dto);
         return resp;

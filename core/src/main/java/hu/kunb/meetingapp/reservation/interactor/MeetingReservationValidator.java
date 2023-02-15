@@ -17,11 +17,16 @@ public class MeetingReservationValidator {
 
     private List<Integer> validMins= Arrays.asList(0,30);
     void validate(MeetingReservationRequestDto dto){
+        ReservationException exception = new ReservationException();
         if (!validMins.contains(dto.getEndMin())){
-            throw new ReservationException("end min must be 0 or 30");
+            exception.addError("end min must be 0 or 30");
         }
         if (!validMins.contains(dto.getStartMin())){
-            throw new ReservationException("start min must be 0 or 30");
+            exception.addError("start min must be 0 or 30");
+        }
+
+        if(!exception.isEmpty()){
+            throw exception;
         }
     }
 }
