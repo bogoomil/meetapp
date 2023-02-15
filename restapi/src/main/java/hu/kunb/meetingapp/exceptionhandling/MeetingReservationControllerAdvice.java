@@ -2,7 +2,7 @@ package hu.kunb.meetingapp.exceptionhandling;
 
 import hu.kunb.meetingapp.apidefinition.spring.model.ErrorDto;
 import hu.kunb.meetingapp.apidefinition.spring.model.ErrorDtoErrorListInner;
-import hu.kunb.meetingapp.reservation.exception.ReservationException;
+import hu.kunb.meetingapp.reservation.exception.ValidationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,11 +34,11 @@ public class MeetingReservationControllerAdvice extends ResponseEntityExceptionH
         return resp;
     }
 
-    @ExceptionHandler(value = {ReservationException.class})
-    public ResponseEntity<?> handleNvenExceptions(ReservationException ex) {
+    @ExceptionHandler(value = {ValidationException.class})
+    public ResponseEntity<?> handleValidationExceptions(ValidationException ex) {
         ErrorDto dto = new ErrorDto()
                 .errorList(ex.getErrors().stream().map(error -> new ErrorDtoErrorListInner().message(error)).collect(Collectors.toList()))
-                .message("Invalid input data");
+                .message("Business rules validation failed");
         ResponseEntity resp = ResponseEntity.status(400).body(dto);
         return resp;
     }
