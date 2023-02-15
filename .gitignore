@@ -1,0 +1,10 @@
+/.idea/
+/restapi/target/
+/launcher/target/
+/restapi/src/.openapi-generator/
+/restapi/src/.openapi-generator-ignore
+/restapi/restapi.iml
+/restapi/src/README.md
+/core/core.iml
+/core/target/
+/apidefinition/target/

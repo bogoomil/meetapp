@@ -1,0 +1,102 @@
+openapi: 3.0.3
+info:
+  title: Meeting app
+  description: Basic meeting reservation api
+  version: 1.0.9
+
+servers:
+  - url: http://localhost:8080/api/
+    description: Develop
+
+tags:
+  - name: meeting
+
+paths:
+  /private/meeting/reservation:
+    post:
+      tags:
+        - meeting reservation
+      summary: Post meeting reservation data
+      operationId: postMeetingReservation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MeetingReservationRequestDto"
+      responses:
+        "200":
+          description: Response when meeting is reserved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MeetingReservationResponseDto"
+        "4XX":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+        "5XX":
+          description: Server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDto"
+
+components:
+  schemas:
+    MeetingReservationRequestDto:
+      type: object
+      required:
+        - username
+        - day
+        - startHour
+        - startMin
+        - endHour
+        - endMin
+      properties:
+        username:
+          type: string
+          example: User Ubul
+        day:
+          type: string
+          format: date
+          description: "reservations day, format: yyyy-MM-dd"
+        startHour:
+          type: integer
+          maximum: 16
+          minimum: 9
+          description: "starting hour of meeting"
+        endHour:
+          type: integer
+          minimum: 9
+          maximum: 16
+          description: "ending hour of meeting"
+        startMin:
+          type: integer
+          minimum: 0
+          maximum: 59
+          description: "starting minute of meeting, must be 0 or 30"
+        endMin:
+          type: integer
+          minimum: 0
+          maximum: 59
+          description: "ending minute of meeting, must be 0 or 30"
+    MeetingReservationResponseDto:
+      type: object
+      properties:
+        status:
+          type: string
+    ErrorDto:
+      type: object
+      properties:
+        message:
+          type: string
+        errorList:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string

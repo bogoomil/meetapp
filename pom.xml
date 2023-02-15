@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.8</version>
+    </parent>
+
+    <groupId>hu.kunb</groupId>
+    <artifactId>meetingapp</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0</version>
+
+    <modules>
+        <module>apidefinition</module>
+        <module>core</module>
+        <module>restapi</module>
+        <module>launcher</module>
+    </modules>
+
+    <properties>
+        <revision>1.0</revision>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <validation-api.version>2.0.1.Final</validation-api.version>
+        <swagger-annotations.version>2.2.8</swagger-annotations.version>
+        <jackson-databind-nullable.version>0.2.5</jackson-databind-nullable.version>
+        <springfox-boot-starter.version>3.0.0</springfox-boot-starter.version>
+        <springdoc-openapi-ui.version>1.6.14</springdoc-openapi-ui.version>
+
+        <junit-bom.version>5.8.2</junit-bom.version>
+        <pitest-maven.version>1.10.4</pitest-maven.version>
+        <pitest-junit5-plugin.version>1.1.2</pitest-junit5-plugin.version>
+        <easy-random-core.version>5.0.0</easy-random-core.version>
+
+        <pitest-maven.skip>true</pitest-maven.skip>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>${validation-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.swagger.core.v3</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${swagger-annotations.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openapitools</groupId>
+                <artifactId>jackson-databind-nullable</artifactId>
+                <version>${jackson-databind-nullable.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>hu.kunb</groupId>
+                <artifactId>apidefinition</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>hu.kunb</groupId>
+                <artifactId>restapi</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>hu.kunb</groupId>
+                <artifactId>core</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>${springdoc-openapi-ui.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>${pitest-maven.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-junit5-plugin</artifactId>
+                <version>${pitest-junit5-plugin.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jeasy</groupId>
+                <artifactId>easy-random-core</artifactId>
+                <version>${easy-random-core.version}</version>
+            </dependency>
+        </dependencies>
+
+    </dependencyManagement>
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.pitest</groupId>
+                    <artifactId>pitest-maven</artifactId>
+                    <version>${pitest-maven.version}</version>
+                    <executions>
+                        <execution>
+                            <id>pit-report</id>
+                            <phase>test</phase>
+                            <goals>
+                                <goal>mutationCoverage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <skip>${pitest-maven.skip}</skip>
+                        <failWhenNoMutations>false</failWhenNoMutations>
+                        <withHistory>true</withHistory>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>
