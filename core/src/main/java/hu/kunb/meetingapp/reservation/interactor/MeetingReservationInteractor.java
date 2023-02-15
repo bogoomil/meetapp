@@ -15,7 +15,8 @@ public class MeetingReservationInteractor implements RestBoundary {
 
     @Override
     public boolean createReservation(MeetingReservationRequestDto dto) {
-
+        MeetingReservationValidator validator = new MeetingReservationValidator(gateway);
+        validator.validate(dto);
         MeetingReservation reservation = new MeetingReservationConverter(dto).convert();
         return false;
     }

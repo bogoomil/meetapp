@@ -48,20 +48,41 @@ components:
   schemas:
     MeetingReservationRequestDto:
       type: object
+      required:
+        - username
+        - day
+        - startHour
+        - startMin
+        - endHour
+        - endMin
       properties:
         username:
           type: string
+          example: User Ubul
         day:
           type: string
           format: date
+          description: "reservations day, format: yyyy-MM-dd"
         startHour:
           type: integer
+          maximum: 16
+          minimum: 9
+          description: "starting hour of meeting"
         endHour:
           type: integer
+          minimum: 9
+          maximum: 16
+          description: "ending hour of meeting"
         startMin:
           type: integer
+          minimum: 0
+          maximum: 59
+          description: "starting minute of meeting, must be 0 or 30"
         endMin:
           type: integer
+          minimum: 0
+          maximum: 59
+          description: "ending minute of meeting, must be 0 or 30"
     MeetingReservationResponseDto:
       type: object
       properties:
@@ -72,5 +93,10 @@ components:
       properties:
         message:
           type: string
-        code:
-          type: string
+        errorList:
+          type: array
+          items:
+            type: object
+            properties:
+              message:
+                type: string
