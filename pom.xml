@@ -16,9 +16,10 @@
     <version>1.0</version>
 
     <modules>
+        <module>apidefinition</module>
+        <module>core</module>
         <module>restapi</module>
         <module>launcher</module>
-        <module>core</module>
     </modules>
 
     <properties>
@@ -36,6 +37,7 @@
         <pitest-junit5-plugin.version>1.1.2</pitest-junit5-plugin.version>
         <easy-random-core.version>5.0.0</easy-random-core.version>
 
+        <pitest-maven.skip>false</pitest-maven.skip>
     </properties>
 
     <dependencyManagement>
@@ -54,6 +56,11 @@
                 <groupId>org.openapitools</groupId>
                 <artifactId>jackson-databind-nullable</artifactId>
                 <version>${jackson-databind-nullable.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>hu.kunb</groupId>
+                <artifactId>apidefinition</artifactId>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>hu.kunb</groupId>
@@ -105,7 +112,7 @@
                         </execution>
                     </executions>
                     <configuration>
-                        <skip>true</skip>
+                        <skip>${pitest-maven.skip}</skip>
                         <failWhenNoMutations>false</failWhenNoMutations>
                         <withHistory>true</withHistory>
                     </configuration>

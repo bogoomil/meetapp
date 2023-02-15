@@ -1,22 +1,28 @@
 package hu.kunb.meetingapp.reservation.modell;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class MeetingReservation {
-    public LocalDate day;
-    public Integer startHour;
-    public Integer startMinute;
-    public Integer endHour;
-    public Integer endMinute;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
+    private String userName;
 
-    @Override
-    public String toString() {
-        return "MeetingReservation{" +
-                "day=" + day +
-                ", startHour=" + startHour +
-                ", startMinute=" + startMinute +
-                ", endHour=" + endHour +
-                ", endMinute=" + endMinute +
-                '}';
+    public MeetingReservation(LocalDateTime startTime, LocalDateTime endTime, String userName) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.userName = userName;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+    public String getUserName() {
+        return userName;
     }
 }
