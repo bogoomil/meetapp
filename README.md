@@ -1,6 +1,8 @@
 # meetapp
 usage:
-- open terminal, cd to project root 
+- open terminal, 
+- git clone https://github.com/bogoomil/meetapp.git
+- cd meetapp
 - mvn clean install
 - cd launcher
 - mvn spring-boot:run
