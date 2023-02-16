@@ -78,6 +78,13 @@ class MeetingReservationValidatorTest {
     }
 
     @Test
+    void startHourGreaterThan16() {
+        dto.setStartHour(18);
+        ValidationException exception = assertThrows(ValidationException.class, () -> validator.validate());
+        assertTrue(exception.getErrors().contains(ValidationException.START_HOUR_MUST_BE_LESS_OR_EQUAL_16));
+    }
+
+    @Test
     void endHourNotNull() {
         ValidationException validationException = assertThrows(ValidationException.class, () -> validator.validate());
         assertTrue(validationException.getErrors().contains(ValidationException.END_HOUR_CANNOT_BE_NULL));
@@ -95,6 +102,13 @@ class MeetingReservationValidatorTest {
         dto.setEndHour(9);
         ValidationException exception = assertThrows(ValidationException.class, () -> validator.validate());
         assertFalse(exception.getErrors().contains(ValidationException.END_HOUR_MUST_BE_GREATER_OR_EQUAL_9));
+    }
+
+    @Test
+    void endHourGreaterThan17() {
+        dto.setEndHour(18);
+        ValidationException exception = assertThrows(ValidationException.class, () -> validator.validate());
+        assertTrue(exception.getErrors().contains(ValidationException.END_HOUR_MUST_BE_LESS_OR_EQUAL_17));
     }
 
     @Test
