@@ -5,6 +5,10 @@ import hu.kunb.meetingapp.reservation.boundary.RestBoundary;
 import hu.kunb.meetingapp.reservation.gateway.PersistenceGateway;
 import hu.kunb.meetingapp.reservation.modell.MeetingReservation;
 
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Optional;
+
 public class MeetingReservationInteractor implements RestBoundary {
 
     private PersistenceGateway gateway;
@@ -14,10 +18,24 @@ public class MeetingReservationInteractor implements RestBoundary {
     }
 
     @Override
-    public boolean createReservation(MeetingReservationRequestDto dto) {
+    public MeetingReservation createReservation(MeetingReservationRequestDto dto) {
         MeetingReservationValidator validator = new MeetingReservationValidator(dto, gateway);
         validator.validate();
         MeetingReservation reservation = new MeetingReservationConverter(dto).convert();
-        return false;
+        gateway.storeReservation(reservation);
+        return reservation;
+    }
+
+    @Override
+    public Collection<MeetingReservation> getAll() {
+        return gateway.getAllReservations();
+    }
+
+    @Override
+    public Optional<MeetingReservation> findByDateTime(LocalDateTime dateTime) {
+        return gateway.getAllReservations()
+                .stream()
+                .filter(reservation -> dateTime.isEqual(reservation.getStartTime()))
+                .findAny();
     }
 }

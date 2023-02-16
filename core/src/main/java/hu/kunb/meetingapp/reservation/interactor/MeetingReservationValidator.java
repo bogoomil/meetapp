@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 public class MeetingReservationValidator {
 
@@ -64,13 +65,26 @@ public class MeetingReservationValidator {
     }
 
     private void validateBusinessRules() {
-        if(errors.isEmpty()){
+        if (errors.isEmpty()) {
             LocalDateTime start = LocalDateTime.of(dto.getDay().getYear(), dto.getDay().getMonth(), dto.getDay().getDayOfMonth(), dto.getStartHour(), dto.getStartMin());
             LocalDateTime end = LocalDateTime.of(dto.getDay().getYear(), dto.getDay().getMonth(), dto.getDay().getDayOfMonth(), dto.getEndHour(), dto.getEndMin());
             validateEndDateNotBeforeStartDate.accept(start, end);
             validateMeetingLengthNotLongerThan.accept(start, end);
             validateEndTimeIsNotGreaterThan1700.accept(end);
+            validateReservationNotOverlapping();
         }
+    }
+
+    private void validateReservationNotOverlapping() {
+        gateway.getAllReservations().forEach(reservation -> {
+            LocalDateTime start = LocalDateTime.of(dto.getDay().getYear(), dto.getDay().getMonth(), dto.getDay().getDayOfMonth(), dto.getStartHour(), dto.getStartMin());
+            LocalDateTime end = LocalDateTime.of(dto.getDay().getYear(), dto.getDay().getMonth(), dto.getDay().getDayOfMonth(), dto.getEndHour(), dto.getEndMin());
+            Predicate<LocalDateTime> startTimeEqualOrBetwwen = d -> !d.isBefore(reservation.getStartTime()) && d.isBefore(reservation.getEndTime());
+            Predicate<LocalDateTime> endTimeEqualOrBetween = d -> d.isAfter(reservation.getStartTime()) && !d.isAfter(reservation.getEndTime());
+            if (startTimeEqualOrBetwwen.test(start) || endTimeEqualOrBetween.test(end) ) {
+                errors.add(ValidationException.RESERVATIONS_CANNOT_BE_OVERLAPPING);
+            }
+        });
     }
 
     private void throwExceptionIfNecessary() {
@@ -81,45 +95,46 @@ public class MeetingReservationValidator {
         }
     }
 
+
     @FunctionalInterface
     interface TriConsumer<P1, P2, P3> {
         void accept(P1 p1, P2 p2, P3 p3);
     }
 
     BiConsumer<Object, String> nullCheck = (o, s) -> {
-        if(o == null){
+        if (o == null) {
             errors.add(s);
         }
     };
     BiConsumer<Integer, String> validateMinuteIsZeroOrThirty = (i, s) -> {
-        if(i != null && !validMins.contains(i)){
+        if (i != null && !validMins.contains(i)) {
             errors.add(s);
         }
     };
     BiConsumer<LocalDate, String> validateDayIsNotWeekend = (d, s) -> {
-        if(d != null && (d.getDayOfWeek() == DayOfWeek.SATURDAY || d.getDayOfWeek() == DayOfWeek.SUNDAY)){
+        if (d != null && (d.getDayOfWeek() == DayOfWeek.SATURDAY || d.getDayOfWeek() == DayOfWeek.SUNDAY)) {
             errors.add(s);
         }
     };
 
     TriConsumer<Integer, Integer, String> validateHourNotLessThan = (hour, value, msg) -> {
-        if(hour != null && hour < value) errors.add(msg);
+        if (hour != null && hour < value) errors.add(msg);
     };
 
     TriConsumer<Integer, Integer, String> validateHourNotGreaterThan = (hour, value, msg) -> {
-        if(hour != null && hour > value) errors.add(msg);
+        if (hour != null && hour > value) errors.add(msg);
     };
 
     BiConsumer<LocalDateTime, LocalDateTime> validateEndDateNotBeforeStartDate = (start, end) -> {
-        if(!start.isBefore(end)){
+        if (!start.isBefore(end)) {
             errors.add(ValidationException.START_TIME_MUST_BE_BEFORE_END_TIME);
         }
     };
 
     BiConsumer<LocalDateTime, LocalDateTime> validateMeetingLengthNotLongerThan = (start, end) -> {
-      if(start.plusHours(3).isBefore(end)){
-          errors.add(ValidationException.MAXIMUM_MEETING_LENGTH_IS_3_HOURS);
-      }
+        if (start.plusHours(3).isBefore(end)) {
+            errors.add(ValidationException.MAXIMUM_MEETING_LENGTH_IS_3_HOURS);
+        }
     };
 
     Consumer<LocalDateTime> validateEndTimeIsNotGreaterThan1700 = end -> {
