@@ -3,6 +3,8 @@ package hu.kunb.meetingapp.exceptionhandling;
 import hu.kunb.meetingapp.apidefinition.spring.model.ErrorDto;
 import hu.kunb.meetingapp.apidefinition.spring.model.ErrorDtoErrorListInner;
 import hu.kunb.meetingapp.reservation.exception.ValidationException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,8 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class MeetingReservationControllerAdvice extends ResponseEntityExceptionHandler {
 
+    private static Logger LOG = LoggerFactory.getLogger(MeetingReservationControllerAdvice.class);
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         ErrorDto dto = new ErrorDto();
@@ -30,7 +34,7 @@ public class MeetingReservationControllerAdvice extends ResponseEntityExceptionH
         });
         dto.setMessage("Invalid input data");
         ResponseEntity resp = ResponseEntity.status(400).body(dto);
-
+        LOG.error("invalid request", ex);
         return resp;
     }
 
@@ -38,8 +42,9 @@ public class MeetingReservationControllerAdvice extends ResponseEntityExceptionH
     public ResponseEntity<?> handleValidationExceptions(ValidationException ex) {
         ErrorDto dto = new ErrorDto()
                 .errorList(ex.getErrors().stream().map(error -> new ErrorDtoErrorListInner().message(error)).collect(Collectors.toList()))
-                .message("Business rules validation failed");
+                .message("Validation failed");
         ResponseEntity resp = ResponseEntity.status(400).body(dto);
+        LOG.error("validation exception", ex);
         return resp;
     }
 
@@ -48,6 +53,7 @@ public class MeetingReservationControllerAdvice extends ResponseEntityExceptionH
         ErrorDto dto = new ErrorDto();
         dto.setMessage("Internal server error: " + Arrays.asList(ex.getClass().getCanonicalName()));
         ResponseEntity resp = ResponseEntity.status(500).body(dto);
+        LOG.error("server error", ex);
         return resp;
     }
 }

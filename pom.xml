@@ -20,6 +20,7 @@
         <module>core</module>
         <module>restapi</module>
         <module>launcher</module>
+        <module>inmemorypersistence</module>
     </modules>
 
     <properties>
@@ -31,12 +32,10 @@
         <jackson-databind-nullable.version>0.2.5</jackson-databind-nullable.version>
         <springfox-boot-starter.version>3.0.0</springfox-boot-starter.version>
         <springdoc-openapi-ui.version>1.6.14</springdoc-openapi-ui.version>
-
         <junit-bom.version>5.8.2</junit-bom.version>
         <pitest-maven.version>1.10.4</pitest-maven.version>
         <pitest-junit5-plugin.version>1.1.2</pitest-junit5-plugin.version>
         <easy-random-core.version>5.0.0</easy-random-core.version>
-
         <pitest-maven.skip>false</pitest-maven.skip>
     </properties>
 
@@ -70,6 +69,11 @@
             <dependency>
                 <groupId>hu.kunb</groupId>
                 <artifactId>core</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>hu.kunb</groupId>
+                <artifactId>inmemorypersistence</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>

@@ -21,6 +21,7 @@ public class ValidationException extends RuntimeException{
     public static final String START_TIME_MUST_BE_BEFORE_END_TIME = "start time must be before end time";
     public static final String MAXIMUM_MEETING_LENGTH_IS_3_HOURS = "maximum meeting length is 3 hours";
     public static final String MEETING_CANNOT_BE_OPEN_AFTER_1700 = "meeting cannot be open after 17:00";
+    public static final String RESERVATIONS_CANNOT_BE_OVERLAPPING = "reservations cannot be overlapping";
 
 
     private List<String> errors = new ArrayList<>();

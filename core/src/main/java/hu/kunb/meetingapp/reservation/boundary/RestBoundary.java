@@ -1,9 +1,14 @@
 package hu.kunb.meetingapp.reservation.boundary;
 
 import hu.kunb.meetingapp.apidefinition.spring.model.MeetingReservationRequestDto;
+import hu.kunb.meetingapp.reservation.modell.MeetingReservation;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Optional;
 
 public interface RestBoundary {
-    boolean createReservation(MeetingReservationRequestDto dto);
+    MeetingReservation createReservation(MeetingReservationRequestDto dto);
+    Collection<MeetingReservation> getAll();
+    Optional<MeetingReservation> findByDateTime(LocalDateTime dateTime);
 }
