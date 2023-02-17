@@ -13,7 +13,7 @@ public class ValidationException extends RuntimeException{
     public static final String START_HOUR_MUST_BE_LESS_OR_EQUAL_16 = "start hour must be less or equal 16";
     public static final String END_HOUR_CANNOT_BE_NULL = "end hour cannot be null";
     public static final String END_HOUR_MUST_BE_GREATER_OR_EQUAL_9 = "end hour must be greater or equal 9";
-    public static final String END_HOUR_MUST_BE_LESS_OR_EQUAL_17 = "end hour must be less or equal 1=";
+    public static final String END_HOUR_MUST_BE_LESS_OR_EQUAL_17 = "end hour must be less or equal 17";
     public static final String START_MIN_CANNOT_BE_NULL = "start minute cannot be null";
     public static final String START_MIN_MUST_BE_0_OR_30 = "start min must be 0 or 30";
     public static final String END_MIN_CANNOT_BE_NULL = "end minute cannot be null";
