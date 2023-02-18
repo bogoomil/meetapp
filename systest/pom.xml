@@ -87,10 +87,6 @@
                 <configuration>
                     <skipTests>false</skipTests>
                     <testFailureIgnore>true</testFailureIgnore>
-                    <systemPropertyVariables>
-                        <!--suppress UnresolvedMavenProperty -->
-                        <!--                        <profileId>${project.activeProfiles[0].id}</profileId>-->
-                    </systemPropertyVariables>
                 </configuration>
             </plugin>
             <plugin>
@@ -98,7 +94,7 @@
                 <artifactId>cukedoctor-maven-plugin</artifactId>
                 <version>3.8.0</version>
                 <configuration>
-                    <skip>true</skip>
+                    <skip>false</skip>
                     <outputFileName>systemTest</outputFileName>
                     <outputDir>cukedoctor</outputDir>
                     <format>pdf</format>
@@ -107,7 +103,7 @@
                     <hideScenarioKeyword>false</hideScenarioKeyword>
                     <hideTags>true</hideTags>
                     <hideStepTime>false</hideStepTime>
-                    <documentTitle>NAVASZ VEN automata tesztek - Automata ügyek kezelése</documentTitle>
+                    <documentTitle>MeetApp sys-test results</documentTitle>
                     <versionLabel>${project.version}</versionLabel>
                 </configuration>
                 <executions>
