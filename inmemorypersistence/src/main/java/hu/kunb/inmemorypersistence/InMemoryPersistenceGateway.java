@@ -26,4 +26,9 @@ public class InMemoryPersistenceGateway implements PersistenceGateway {
     public MeetingReservation findByDateTime(LocalDateTime localDateTime) {
         return db.get(localDateTime);
     }
+
+    @Override
+    public void deleteAll() {
+        db.clear();
+    }
 }

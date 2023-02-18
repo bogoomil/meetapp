@@ -9,4 +9,5 @@ public interface PersistenceGateway {
     void storeReservation(MeetingReservation reservation);
     Collection<MeetingReservation> getAllReservations();
     MeetingReservation findByDateTime(LocalDateTime localDateTime);
+    void deleteAll();
 }

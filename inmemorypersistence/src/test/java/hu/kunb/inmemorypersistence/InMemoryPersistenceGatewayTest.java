@@ -38,4 +38,10 @@ public class InMemoryPersistenceGatewayTest {
         MeetingReservation r = gateway.findByDateTime(reservation.getStartTime());
         assertNotNull(r);
     }
+
+    @Test
+    void testDeleteAll(){
+        gateway.deleteAll();
+        assertTrue(gateway.db.isEmpty());
+    }
 }

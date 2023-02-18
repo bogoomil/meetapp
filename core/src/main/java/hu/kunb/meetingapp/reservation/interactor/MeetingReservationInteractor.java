@@ -38,4 +38,9 @@ public class MeetingReservationInteractor implements RestBoundary {
                 .filter(reservation -> dateTime.isEqual(reservation.getStartTime()))
                 .findAny();
     }
+
+    @Override
+    public void deleteAll() {
+        gateway.deleteAll();
+    }
 }

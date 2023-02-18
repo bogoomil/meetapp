@@ -64,4 +64,10 @@ public class MeetingReservationInteractorTest {
         assertTrue(interactor.findByDateTime(start).isPresent());
         assertTrue(interactor.findByDateTime(LocalDateTime.MAX).isEmpty());
     }
+
+    @Test
+    void deleteAll(){
+        interactor.deleteAll();
+        Mockito.verify(gateway).deleteAll();
+    }
 }

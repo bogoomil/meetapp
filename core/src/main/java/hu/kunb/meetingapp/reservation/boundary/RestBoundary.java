@@ -11,4 +11,5 @@ public interface RestBoundary {
     MeetingReservation createReservation(MeetingReservationRequestDto dto);
     Collection<MeetingReservation> getAll();
     Optional<MeetingReservation> findByDateTime(LocalDateTime dateTime);
+    void deleteAll();
 }
