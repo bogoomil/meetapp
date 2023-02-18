@@ -21,6 +21,7 @@
         <module>restapi</module>
         <module>launcher</module>
         <module>inmemorypersistence</module>
+        <module>systest</module>
     </modules>
 
     <properties>
@@ -37,6 +38,7 @@
         <pitest-junit5-plugin.version>1.1.2</pitest-junit5-plugin.version>
         <easy-random-core.version>5.0.0</easy-random-core.version>
         <pitest-maven.skip>false</pitest-maven.skip>
+        <cucumber-bom.version>7.2.3</cucumber-bom.version>
     </properties>
 
     <dependencyManagement>
@@ -95,6 +97,13 @@
                 <groupId>org.jeasy</groupId>
                 <artifactId>easy-random-core</artifactId>
                 <version>${easy-random-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.cucumber</groupId>
+                <artifactId>cucumber-bom</artifactId>
+                <version>${cucumber-bom.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
 
