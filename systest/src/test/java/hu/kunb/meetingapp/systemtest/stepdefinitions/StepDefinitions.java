@@ -9,6 +9,7 @@ import io.cucumber.java.en.When;
 import io.cucumber.messages.internal.com.fasterxml.jackson.core.JsonProcessingException;
 import io.cucumber.messages.internal.com.fasterxml.jackson.databind.DeserializationFeature;
 import io.cucumber.messages.internal.com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -23,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class StepDefinitions {
 
     public static final String USER_NAME = "USER_NAME";
+    public static final String BASE_URI = "http://localhost:8080/api/private/meeting";
     private static RestTemplate restTemplate = new RestTemplate();
     private ResponseEntity<MeetingReservationDto> response;
     private MeetingReservationRequestDto request;
@@ -31,6 +33,22 @@ public class StepDefinitions {
 
     @Given("four meetings already reserved")
     public void meetingKezdoIdopontL() {
+        deleteAll();
+        List<MeetingReservationRequestDto> requests = getMeetingReservationRequestDtos();
+        createTestData(requests);
+    }
+
+    private void createTestData(List<MeetingReservationRequestDto> requests) {
+        for (MeetingReservationRequestDto requestDto : requests){
+            try{
+                restTemplate.postForEntity(BASE_URI + "/reservation", requestDto, MeetingReservationDto.class);
+            }catch (Exception e){
+                System.out.println("e:" + e.getMessage());
+            }
+        }
+    }
+
+    private List<MeetingReservationRequestDto> getMeetingReservationRequestDtos() {
         List<MeetingReservationRequestDto> requests = Arrays.asList(
                 new MeetingReservationRequestDto()
                         .day(LocalDate.of(2023, 1, 4))
@@ -60,13 +78,11 @@ public class StepDefinitions {
                         .startMin(0)
                         .endMin(0)
                         .username(USER_NAME));
-        for (MeetingReservationRequestDto requestDto : requests){
-            try{
-                restTemplate.postForEntity("http://localhost:8080/api/private/meeting/reservation", request, MeetingReservationDto.class);
-            }catch (Exception e){
-                System.out.println("e:" + e.getMessage());
-            }
-        }
+        return requests;
+    }
+
+    private void deleteAll() {
+        restTemplate.getForObject(BASE_URI + "/deleteall", Void.class);
     }
 
     @When("i try to create a new reservation")
@@ -80,7 +96,7 @@ public class StepDefinitions {
                 .username(USER_NAME);
 
 
-        HttpClientErrorException e = assertThrows(HttpClientErrorException.class, () -> restTemplate.postForEntity("http://localhost:8080/api/private/meeting/reservation", requestDto, MeetingReservationDto.class));
+        HttpClientErrorException e = assertThrows(HttpClientErrorException.class, () -> restTemplate.postForEntity(BASE_URI + "/reservation", requestDto, MeetingReservationDto.class));
         ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         errorDto = objectMapper.readValue(e.getResponseBodyAsString(), ErrorDto.class);
 
@@ -90,6 +106,5 @@ public class StepDefinitions {
     @Then("i got an exception")
     public void megkapomAValaszt() throws IOException {
         assertNotNull(errorDto);
-//        assertEquals(USER_NAME, response.getBody().getUser());
     }
 }

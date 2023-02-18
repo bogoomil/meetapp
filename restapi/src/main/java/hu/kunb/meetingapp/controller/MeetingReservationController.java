@@ -64,6 +64,12 @@ public class MeetingReservationController implements MeetingReservationApi {
         throw exception;
     }
 
+    @Override
+    public ResponseEntity<Void> deleteAll() {
+        restBoundary.deleteAll();
+        return ResponseEntity.ok().build();
+    }
+
     private MeetingReservationDto getMeetingReservationDto(MeetingReservation reservation) {
         MeetingReservationDto response = new MeetingReservationDto()
                 .day(reservation.getStartTime().toLocalDate())
@@ -72,5 +78,7 @@ public class MeetingReservationController implements MeetingReservationApi {
                 .user(reservation.getUserName());
         return response;
     }
+
+
 
 }

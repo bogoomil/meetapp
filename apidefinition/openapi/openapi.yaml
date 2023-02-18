@@ -59,6 +59,16 @@ paths:
               schema:
                 $ref: "#/components/schemas/MeetingListDto"
 
+  /private/meeting/deleteall:
+    get:
+      tags:
+        - MeetingReservation
+      summary: deletes all meetings
+      operationId: deleteAll
+      responses:
+        "200":
+          description: ok
+
   /private/meeting/reservation:
     post:
       tags:
