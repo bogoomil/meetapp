@@ -165,7 +165,7 @@ class MeetingReservationValidatorTest {
 
     @Test
     void startTimeAfterEndTime() {
-        dto.setDay(LocalDate.now());
+        dto.setDay(LocalDate.of(2023, 1, 4));
         dto.setStartHour(12);
         dto.setStartMin(0);
         dto.setEndHour(11);
@@ -176,7 +176,7 @@ class MeetingReservationValidatorTest {
 
     @Test
     void startMeetingLengthTooLong() {
-        dto.setDay(LocalDate.now());
+        dto.setDay(LocalDate.of(2023, 1, 4));
         dto.setStartHour(9);
         dto.setStartMin(0);
         dto.setEndHour(13);
@@ -187,7 +187,7 @@ class MeetingReservationValidatorTest {
 
     @Test
     void startMeetingOpenAfter17() {
-        dto.setDay(LocalDate.now());
+        dto.setDay(LocalDate.of(2023, 1, 4));
         dto.setStartHour(16);
         dto.setStartMin(0);
         dto.setEndHour(17);
