@@ -32,7 +32,7 @@ public class StepDefinitions {
 
 
     @Given("four meetings already reserved")
-    public void meetingKezdoIdopontL() {
+    public void fourMeetingAlreadyReserved() {
         deleteAll();
         List<MeetingReservationRequestDto> requests = getMeetingReservationRequestDtos();
         createTestData(requests);
@@ -86,7 +86,7 @@ public class StepDefinitions {
     }
 
     @When("i try to create a new reservation")
-    public void meghivomASzolgaltatast() throws JsonProcessingException {
+    public void iTryToCreateANewReservation() throws JsonProcessingException {
         MeetingReservationRequestDto requestDto = new MeetingReservationRequestDto()
                 .day(LocalDate.of(2023, 1, 4))
                 .startHour(10)
