@@ -1,4 +1,4 @@
-package hu.kunb.meetingapp.systemtest.runner;
+package hu.kunb;
 
 import org.junit.platform.suite.api.ConfigurationParameter;
 import org.junit.platform.suite.api.IncludeEngines;
@@ -10,8 +10,7 @@ import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
 
 @Suite
 @IncludeEngines("cucumber")
-@SelectClasspathResource("features/meetingReservations")
-@ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "hu.kunb.meetingapp.systemtest.stepdefinitions")
-@ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "html:target/riport/html/Meetings.html")
+@SelectClasspathResource("hu/kunb")
+@ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty")
 public class TestMeetings {
 }

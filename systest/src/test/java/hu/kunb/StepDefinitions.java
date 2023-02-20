@@ -1,4 +1,4 @@
-package hu.kunb.meetingapp.systemtest.stepdefinitions;
+package hu.kunb;
 
 import hu.kunb.meetingapp.apidefinition.spring.model.ErrorDto;
 import hu.kunb.meetingapp.apidefinition.spring.model.MeetingReservationDto;
@@ -104,7 +104,7 @@ public class StepDefinitions {
     }
 
     @Then("i got an exception")
-    public void megkapomAValaszt() throws IOException {
+    public void iGotAnException() throws IOException {
         assertNotNull(errorDto);
     }
 }
